@@ -1,14 +1,24 @@
-const http = require('http');
+require('dotenv').config();
+const express = require('express');
+const session = require('express-session');
+const app = express();
 
-const hostname = '127.0.0.1';
-const port = 3000;
+const path = require('path');
 
-const server = http.createServer((req, res) => {
-	res.statusCode = 200;
-	res.setHeader('Content-Type', 'text/plain');
-	res.end('Hello World');
-});
+const PORT = process.env.PORT || 3000;
+// NOTE 로그를 위한 모듈
+const logger = require('morgan');
 
-server.listen(port, hostname, () => {
-	console.log(`Server running at http://${hostname}:${port}/`);
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+
+app.use('/', require('./routes'));
+
+app.use((err, req, res, next) => {
+	console.error(err);
+	res.status(404).send('Not Found');
+})
+
+app.listen(PORT, () => {
+	console.log(`Server running at ${PORT}/`);
 });
