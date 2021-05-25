@@ -15,7 +15,7 @@ router.get('/', function (req, res, next) {
   res.render('index', { title: "프로젝트 시작" });
 });
 
-router.get('/Journey', async function (req, res, next) {
+router.get('/journey', async function (req, res, next) {
   await Journey.create({
     memo: "abcabc",
   }).catch((err) => {
@@ -23,24 +23,20 @@ router.get('/Journey', async function (req, res, next) {
       console.log(err);
     }
   })
-  /*
-  let suggestionsData = new Array;
-  await Suggestion.findAll().then((data) => {
-      console.log("Suggestions database called");
-      let i = 0;
-      while (data[i]) {
-        const content = data[i].dataValues.content;
-        suggestionsData.push(content);
-        ++i;
-      }
-    }).catch((err) => {
-      console.log("Sequelize selection err");
-      next(err);
-    });
-  res.status(200).render('../views/suggestions', {
-    title: `Suggestions`,
-    data: suggestionsData,
+  let journeyData = new Array;
+  await Journey.findAll().then((data) => {
+    console.log("journey database called");
+    let i = 0;
+    while (data[i]) {
+      const content = data[i].dataValues.memo;
+      journeyData.push(content);
+      ++i;
+    }
+    res.render('journey', { title: "jorney", data: journeyData });
+  }).catch((err) => {
+    console.log("Sequelize selection err");
+    next(err);
   });
-  */
 });
+
 module.exports = router;
