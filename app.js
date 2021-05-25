@@ -6,6 +6,7 @@ const app = express();
 const path = require('path');
 
 const PORT = process.env.PORT || 3000;
+
 // NOTE 로그를 위한 모듈
 const logger = require('morgan');
 
@@ -19,6 +20,9 @@ app.use((err, req, res, next) => {
 	res.status(404).send('Not Found');
 })
 
-app.listen(PORT, () => {
-	console.log(`Server running at ${PORT}/`);
-});
+const db = require('./models');
+db.sequelize.sync().then((req) => {
+	app.listen(PORT, () => {
+		console.log(`Server running at ${PORT}`);
+	});
+})
