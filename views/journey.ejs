@@ -13,6 +13,17 @@
   <h1>
     <%= title %>
   </h1>
+  <h2>
+    <form action="/journey" method="post">
+      <input type="text" name="begTime" placeholder="시작 시간"></input>
+      <input type="text" name="endTime" placeholder="종료 시간"></input>
+      <input type="text" name="event" placeholder="일정"></input>
+      <input type="text" name="memo" placeholder="메모"></input>
+      <input type="text" name="partner" placeholder="일행"></input>
+      <input type="text" name="place" placeholder="일행"></input>
+      <button type="submit" value="전송" name="">제출</button>
+    </form>
+  </h2>
   <p>Welcome to <%= title %></p>
   <ul>
       <% for (let i = 0; data[i]; ++i) { %>
@@ -22,3 +33,5 @@
       <% } %>
   </ul>
 </body>
+
+</html>

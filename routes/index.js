@@ -5,10 +5,10 @@ const router = express.Router();
 const { Journey } = require('../models');
 
 const bodyParser = require('body-parser');
-router.use(bodyParser.json());
-router.use(bodyParser.urlencoded({
-  extended: true
-}));
+const urlencodedParser = bodyParser.urlencoded({extended: false});
+
+//app.use(bodyParser.json());
+
 
 router.get('/', function (req, res, next) {
   res.status(200);
@@ -16,6 +16,7 @@ router.get('/', function (req, res, next) {
 });
 
 router.get('/journey', async function (req, res, next) {
+  /*
   await Journey.create({
     memo: "abcabc",
   }).catch((err) => {
@@ -23,6 +24,8 @@ router.get('/journey', async function (req, res, next) {
       console.log(err);
     }
   })
+  */
+ /*
   let journeyData = new Array;
   await Journey.findAll().then((data) => {
     console.log("journey database called");
@@ -32,11 +35,18 @@ router.get('/journey', async function (req, res, next) {
       journeyData.push(content);
       ++i;
     }
-    res.render('journey', { title: "jorney", data: journeyData });
+    res.render('journey', { title: "journey", data: journeyData });
   }).catch((err) => {
     console.log("Sequelize selection err");
     next(err);
   });
+*/
+  const journeyData = [0, 1, 2, 3];
+  res.render('journey', { title: "journey", data: journeyData });
 });
+
+router.post('/journey', async function (req, res, next) {
+  console.log(req.body);
+})
 
 module.exports = router;
